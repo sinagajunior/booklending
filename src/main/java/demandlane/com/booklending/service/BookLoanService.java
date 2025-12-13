@@ -1,7 +1,7 @@
 package demandlane.com.booklending.service;
 
 
-i
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,6 @@ LoanRepository loanRepository;
 MemberRepository memberRepository;
 
 
-@Autowired    
 public BookLoanService(KieContainer kieContainer) {
         this.kieContainer = kieContainer;
     }
@@ -54,8 +53,9 @@ for(Loan loan:loans){
 
 
 
-
 return "Loan Approved";
 
+
 }
+
 }
