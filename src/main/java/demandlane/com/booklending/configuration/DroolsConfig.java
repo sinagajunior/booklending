@@ -1,7 +1,7 @@
 package demandlane.com.booklending.configuration;
 
 import java.io.IOException;
-
+import java.io.InputStream;
 import org.kie.api.builder.Message;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
@@ -11,21 +11,26 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.internal.io.ResourceFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+
+import demandlane.com.booklending.utility.BookLoanUtility;
 
 
 @Configuration
 
 public class DroolsConfig {
 
-      private static final String RULES_FILE = "drools/BookLoanRule.xlsx";
-
     @Bean
-    public KieContainer kieContainer() throws IOException {
+    public KieContainer kieContainer() {
+        //InputStream inputStream = new ClassPathResource("drools/BookLoanRule.xlsx").getInputStream();
+        //String rulesFile = BookLoanUtility.convertInputStreamToString(inputStream);
+        final String rules_file = "drools/BookLoanRule.xlsx";
+        
         KieServices ks = KieServices.Factory.get();
         KieFileSystem kfs = ks.newKieFileSystem();
         
         // Load the Excel file from the classpath
-        kfs.write(ResourceFactory.newClassPathResource(RULES_FILE));
+        kfs.write(ResourceFactory.newClassPathResource(rules_file));
         
         KieBuilder kb = ks.newKieBuilder(kfs).buildAll();
         
@@ -37,5 +42,7 @@ public class DroolsConfig {
         
         return ks.newKieContainer(ks.getRepository().getDefaultReleaseId());
     }
+
+  
 
 }

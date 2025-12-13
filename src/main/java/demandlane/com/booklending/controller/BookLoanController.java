@@ -16,18 +16,18 @@ public class BookLoanController {
 
      private final BookLoanService loanService;
 
-    @Autowired
+
     public BookLoanController(BookLoanService loanService) {
         this.loanService = loanService;
     }
 
     // A simple request body DTO can be used here in a real app
     @PostMapping("/borrow")
-    public ResponseEntity<String> borrowBook(@RequestParam String memberId, @RequestParam String bookId) {
+    public ResponseEntity<String> borrowBook(@RequestParam String memberId, @RequestParam String bookId,@RequestParam String name) {
         // In a real application, you'd fetch the actual Member and Book entities here
         // The service layer currently uses mocks/placeholders for the DB interaction part.
         try {
-            String resultMessage = loanService.processingLoan(memberId, bookId,"user");
+            String resultMessage = loanService.processingLoan(memberId, bookId,name);
             if (resultMessage.startsWith("Loan denied:")) {
                 return ResponseEntity.badRequest().body(resultMessage);
             }
