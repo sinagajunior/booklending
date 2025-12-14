@@ -27,9 +27,9 @@ public class PostgresDatabaseConfig {
     public HikariDataSource dataSource() {
         HikariDataSource dataSource = DataSourceBuilder.create().type(HikariDataSource.class)
         .build();
-        //dataSource.setMaximumPoolSize(Integer.parseInt(environment.getProperty("spring.datasource.hikari.MaxPoolSize")));
-       // dataSource.setMinimumIdle(Integer.parseInt(environment.getProperty("spring.datasource.hikari.minIdle")));
-        dataSource.setPoolName(environment.getProperty("spring.datasource.hikari.poolName"));
+       // dataSource.setMaximumPoolSize(Integer.parseInt(environment.getProperty("spring.datasource.hikari.MaxPoolSize")));
+       //dataSource.setMinimumIdle(Integer.parseInt(environment.getProperty("spring.datasource.hikari.minIdle")));
+       // dataSource.setPoolName(environment.getProperty("spring.datasource.hikari.poolName"));
         //dataSource.setConnectionTimeout(Long.parseLong(environment.getProperty("spring.datasource.hikari.connectionTimeout")));
        // dataSource.setIdleTimeout(Long.parseLong(environment.getProperty("spring.datasource.hikari.idleTimeout")));
        // dataSource.setMaxLifetime(Long.parseLong(environment.getProperty("spring.datasource.hikari.maxLifetime")));

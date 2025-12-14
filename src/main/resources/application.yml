@@ -14,8 +14,15 @@ spring:
         connectionTimeout: 30000   # 30 seconds
         maxLifetime: 1800000       # 30 minutes
         poolName: LendingbookAppPool
-    jpa:
-       hibernate:
-       # Explicitly tell Hibernate it's PostgreSQL
-       dialect: org.hibernate.dialect.PostgreSQLDialect
-       
+  jpa:
+    hibernate:
+      # Automatically manage the schema (validate, update, create, create-drop)
+      ddl-auto: update
+      # Show generated SQL in the console
+      show-sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      # Further performance tuning for statement caching
+      hibernate.hikari.cachePrepStmts: true
+      hibernate.hikari.prepStmtCacheSize: 250
+      hibernate.hikari.prepStmtCacheSqlLimit: 2048     
