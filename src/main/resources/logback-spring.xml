@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- Custom Console Appender Configuration -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Custom log pattern: Date, Level, Thread, Logger Name, Message -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Ensure Hikari logs at INFO level for connection pool state messages -->
+    <logger name="com.zaxxer.hikari" level="INFO" />
+
+    <!-- Root logger configuration -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!-- Specific DEBUG level for our application code (overrides application.yml level if present) -->
+    <logger name="com.library.api" level="DEBUG" />
+
+</configuration>

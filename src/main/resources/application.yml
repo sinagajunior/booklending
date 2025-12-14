@@ -26,3 +26,9 @@ spring:
       hibernate.hikari.cachePrepStmts: true
       hibernate.hikari.prepStmtCacheSize: 250
       hibernate.hikari.prepStmtCacheSqlLimit: 2048     
+      
+logging:
+  level:
+    com.library.api: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
