@@ -24,7 +24,7 @@ public class DroolsConfig {
     public KieContainer kieContainer() {
         //InputStream inputStream = new ClassPathResource("drools/BookLoanRule.xlsx").getInputStream();
         //String rulesFile = BookLoanUtility.convertInputStreamToString(inputStream);
-        final String rules_file = "drools/BookLoanRule.xlsx";
+        final String rules_file = "drools/BookLoanRule.drl.xlsx";
         
         KieServices ks = KieServices.Factory.get();
         KieFileSystem kfs = ks.newKieFileSystem();

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: booklending
+
+  datasource:
+    jdbcUrl: jdbc:postgresql://localhost:5432/lendingbookapp
+    username: postgres
+    password: P@ssw0rd
+    driverClassName: org.postgresql.Driver
+    hikari:
+        minimumIdle: 5
+        maximumPoolSize: 20
+        idleTimeout: 600000        # 10 minutes
+        connectionTimeout: 30000   # 30 seconds
+        maxLifetime: 1800000       # 30 minutes
+        poolName: LendingbookAppPool
+    jpa:
+       hibernate:
+       # Explicitly tell Hibernate it's PostgreSQL
+       dialect: org.hibernate.dialect.PostgreSQLDialect
+       
