@@ -5,17 +5,21 @@ import java.util.List;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import demandlane.com.booklending.domain.Book;
-
-import demandlane.com.booklending.dto.Loan;
-import demandlane.com.booklending.dto.Member;
+import demandlane.com.booklending.domain.Loan;
+import demandlane.com.booklending.domain.Member;
+import demandlane.com.booklending.dto.BookDto;
+import demandlane.com.booklending.dto.LoanDto;
+import demandlane.com.booklending.dto.MemberDto;
 import demandlane.com.booklending.dto.request.LoanRequest;
 import demandlane.com.booklending.repository.BookRepository;
 import demandlane.com.booklending.repository.LoanRepository;
 import demandlane.com.booklending.repository.MemberRepository;
+import demandlane.com.booklending.utility.LoanMapper;
 
 @Service
 public class BookLoanService {
@@ -32,9 +36,13 @@ public class BookLoanService {
     @Autowired
     MemberRepository memberRepository;
 
-    public LoanRequest evaluateLoanRequest(Member member) {
+   
+
+    
+
+    public LoanRequest evaluateLoanRequest(MemberDto member) {
         KieSession kieSession = kieContainer.newKieSession();
-        List<Loan> currentLoans = new ArrayList<>(); // Placeholder for current loans
+        List<LoanDto> currentLoans = new ArrayList<>(); // Placeholder for current loans
         kieSession.insert(member);
         // kieSession.insert(book);
         currentLoans.forEach(kieSession::insert);
@@ -49,10 +57,10 @@ public class BookLoanService {
         return request;
     }
 
-    public void recordLoan(Loan loan) {
+    public void recordLoan(LoanDto loanDto) {
+        LoanMapper mapper = Mappers.getMapper(LoanMapper.class);
         // Persist the loan using the repository
-        demandlane.com.booklending.domain.Loan savedLoan = null;
-
+        Loan savedLoan = mapper.toLoan(loanDto);
         loanRepository.save(savedLoan);
     }
 
@@ -67,8 +75,8 @@ public class BookLoanService {
 
     }
 
-    public List<Loan> getMemberLoans(String memberId) {
-        List<Loan> loans = new ArrayList<>();
+    public List<LoanDto> getMemberLoans(String memberId) {
+        List<LoanDto> loans = new ArrayList<>();
         List<demandlane.com.booklending.domain.Loan> loanEntities = loanRepository.findByMemberId(memberId);
         for (demandlane.com.booklending.domain.Loan loanEntity : loanEntities) {
             // Loan loan = new Loan(
@@ -89,13 +97,16 @@ public class BookLoanService {
 
 
 
-    public void recordBook(Book book) {
-        Book savedBook = null;
+    public void recordBook(BookDto bookDto) {
+        LoanMapper loanMapper = Mappers.getMapper(LoanMapper.class);
+         
+        Book savedBook = loanMapper.toBook(bookDto);
         bookRepository.save(savedBook);
     }
 
-    public void registerMember(Member member) {
-        demandlane.com.booklending.domain.Member savedMember = null;
+    public void registerMember(MemberDto memberDto) {
+        LoanMapper mapper = Mappers.getMapper(LoanMapper.class);
+        Member savedMember = mapper.toMember(memberDto);
         memberRepository.save(savedMember);
     }
 
