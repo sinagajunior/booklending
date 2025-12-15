@@ -96,7 +96,12 @@ bookId (Query Param): The ID of the book.
 Example Request (using cURL):
 
 bash
-curl -u user:password -X POST "http://localhost:8080/api/loans/borrow?memberId=1&bookId=101"
+postman request POST 'http://localhost:8080/api/loans/borrow?memberId=sida&bookId=0023&name=sida' \
+  --header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
+  --header 'Cookie: JSESSIONID=2EA4EEE7F364E73CCE75DEA9B8AACE2D' \
+  --auth-basic-username 'user' \
+  --auth-basic-password 'password'
+
 Use code with caution.
 
 Example Success Response:
@@ -106,6 +111,47 @@ Loan approved and issued successfully.
 Example Failure Response:
 HTTP/1.1 400 Bad Request
 Loan denied: ERROR: Member has too many active loans.
+
+
+Record a Book
+Attempt to process a new record book
+
+Endpoint: POST /api/loans/borrow
+Method: POST
+Parameters:
+memberId (Query Param): The ID of the member.
+bookId (Query Param): The ID of the book.
+
+
+Example Request (using cURL):
+
+bash
+postman request POST 'http://localhost:8080/api/loans/recordbook' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
+  --header 'Cookie: JSESSIONID=2EA4EEE7F364E73CCE75DEA9B8AACE2D' \
+  --body '{
+"id":"3234434",
+"title":"Harry potter",
+"author":"iskak2",
+"isbn":"gramedia",
+"totalCopies":"34",
+"availableCopies":"34"
+}' \
+  --auth-basic-username 'user' \
+  --auth-basic-password 'password'
+
+Use code with caution.
+
+Example Success Response:
+HTTP/1.1 200 OK
+Loan approved and issued successfully.
+
+Example Failure Response:
+HTTP/1.1 400 Bad Request
+Book must have title Name
+
+
 
 7. Security
 The application is secured using Spring Security with HTTP Basic Authentication.
